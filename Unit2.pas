@@ -28,7 +28,6 @@ implementation
 
 constructor TPorland.Create(str: string);
 var
-  tmp: Variant;
   cnt: integer;
 begin
   inherited Create;

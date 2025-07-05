@@ -12,11 +12,14 @@ uses
 
 var
   make_ten: TPorland;
+  str: string;
 
 begin
   try
     { TODO -oUser -cConsole メイン : ここにコードを記述してください }
-    make_ten := TPorland.Create('1733');
+    Write('4けたの数字を入力:');
+    Readln(str);
+    make_ten := TPorland.Create(Copy(str, 1, 4));
     make_ten.Execute;
     for var s in make_ten.Strings do
       Writeln(s);
