@@ -35,33 +35,19 @@ begin
   FList := TStringList.Create;
   FStack := TStack<Double>.Create;
   FStrings := TStringList.Create;
-  permutation(str, 1, 4);
+  str := str + '###';
+  permutation(str, 1, 7);
   for var s in FList do
   begin
     cnt := 0;
     for var data in s do
     begin
-      FDoubles[cnt] := StrToFloat(data);
+      if data = '#' then
+        FDoubles[cnt] := Nan
+      else
+        FDoubles[cnt] := StrToFloat(data);
       inc(cnt);
     end;
-    for var i := 4 to 6 do
-      FDoubles[i] := Nan;
-    Execute;
-    tmp := FDoubles[3];
-    FDoubles[3] := FDoubles[4];
-    FDoubles[4] := tmp;
-    Execute;
-    tmp := FDoubles[4];
-    FDoubles[4] := FDoubles[5];
-    FDoubles[5] := tmp;
-    Execute;
-    tmp := FDoubles[2];
-    FDoubles[2] := FDoubles[3];
-    FDoubles[3] := tmp;
-    Execute;
-    tmp := FDoubles[4];
-    FDoubles[4] := FDoubles[5];
-    FDoubles[5] := tmp;
     Execute;
   end;
 end;
@@ -179,25 +165,24 @@ var
   end;
 
 begin
-  for var i := 0 to FList.Count - 1 do
-    for var op1 in chars do
-      for var op2 in chars do
-        for var op3 in chars do
+  for var op1 in chars do
+    for var op2 in chars do
+      for var op3 in chars do
+      begin
+        code := op3 + op2 + op1;
+        FStack.Clear;
+        for var d in FDoubles do
+          FStack.Push(d);
+        if not IsNan(FStack.Pop) or not main(1) then
+          continue;
+        ans := FStack.Pop;
+        if (FStack.Count = 0) and (Abs(ans - 10) < 1E-6) then
         begin
-          code := op3 + op2 + op1;
-          FStack.Clear;
-          for var d in FDoubles do
-            FStack.Push(d);
-          if not IsNan(FStack.Pop) or not main(1) then
-            continue;
-          ans := FStack.Pop;
-          if Abs(ans - 10) < 1E-6 then
-          begin
-            str := decode(code) + ' = 10';
-            if Strings.IndexOf(str) = -1 then
-              Strings.Add(str)
-          end;
+          str := decode(code) + ' = 10';
+          if Strings.IndexOf(str) = -1 then
+            Strings.Add(str)
         end;
+      end;
 end;
 
 procedure TPorland.permutation(var dbl: string; left, right: integer);
