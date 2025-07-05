@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{EE37CAC0-E74A-494C-99D2-C141818510CF}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="number_algorithm.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="komachi.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="make_tenn.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="number_algorithm">
+        <MSBuild Projects="number_algorithm.dproj"/>
+    </Target>
+    <Target Name="number_algorithm:Clean">
+        <MSBuild Projects="number_algorithm.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="number_algorithm:Make">
+        <MSBuild Projects="number_algorithm.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="komachi">
+        <MSBuild Projects="komachi.dproj"/>
+    </Target>
+    <Target Name="komachi:Clean">
+        <MSBuild Projects="komachi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="komachi:Make">
+        <MSBuild Projects="komachi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="make_tenn">
+        <MSBuild Projects="make_tenn.dproj"/>
+    </Target>
+    <Target Name="make_tenn:Clean">
+        <MSBuild Projects="make_tenn.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="make_tenn:Make">
+        <MSBuild Projects="make_tenn.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="number_algorithm;komachi;make_tenn"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="number_algorithm:Clean;komachi:Clean;make_tenn:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="number_algorithm:Make;komachi:Make;make_tenn:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
